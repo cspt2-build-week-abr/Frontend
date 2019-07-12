@@ -1,33 +1,89 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  height: 100vh;
+  background-color: #EFEFEF
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 36px;
+  color: white
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.header {
+  width: 100%;
+  height: 75px;
+  background-color: #FF9320;
+  box-shadow: 2px 2px 10px grey;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-left: 50px;
+  padding-right: 50px;
+  position: fixed;
+  top: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.roominventory {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 105px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card {
+  width: 20%;
+  color: white !important;
+}
+
+.roominventory .p-card-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 24px;
+  color: white
+}
+
+.card:nth-of-type(1n) {
+  background: #3A94F5;
+}
+
+.card:nth-of-type(2n) {
+  background: #6741B8;
+}
+
+.card:nth-of-type(3n) {
+  background: #FBA300;
+}
+
+.card:nth-of-type(4n) {
+  background: #5CB053;
+}
+
+.lower {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.placeholder {
+  height: 70vh;
+  width: 60vw;
+}
+
+.inventory {
+  height: 70vh;
+  width: 30vw;
+}
+
+.inventory .p-card-header {
+  background-color: #F74A34;
+  box-shadow: 2px 2px 10px grey;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 24px;
+  color: white
 }
