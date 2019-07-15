@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import "primereact/resources/themes/nova-dark/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
+// import "primereact/resources/themes/nova-dark/theme.css";
+// import "primereact/resources/primereact.min.css";
+// import "primeicons/primeicons.css";
 import Header from './Components/Header';
 import RoomInventory from './Components/RoomInventory'
 import GraphPlaceholder from './Components/GraphPlaceholder'
@@ -12,12 +12,13 @@ import Map from './Components/Map.js'
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header />
       <RoomInventory />
       <div className="lower">
         <GraphPlaceholder />
         <PersonalInventory />
-      </div>
+      </div> */}
+      <Map />
     </div>
   );
 }
