@@ -1,7 +1,7 @@
 import React  from 'react';
 import '../App.css';
 import '../../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries} from 'react-vis';
+import {XYPlot, MarkSeries} from 'react-vis';
 
 class Map extends React.Component {
   render() {
@@ -20,7 +20,7 @@ class Map extends React.Component {
     return (
       <div>
         <XYPlot height={300} width={300}>
-          <LineSeries data={data} />
+          <MarkSeries data={data} />
         </XYPlot>
       </div>
     );
