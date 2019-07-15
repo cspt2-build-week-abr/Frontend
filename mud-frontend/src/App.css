@@ -9,7 +9,7 @@ body {
 h1 {
   font-family: 'Luckiest Guy', cursive;
   font-size: 36px;
-  color: white
+  color: white;
 }
 
 
@@ -69,6 +69,7 @@ h1 {
 }
 
 .placeholder {
+  position: relative;
   height: 70vh;
   width: 60vw;
 }
@@ -86,4 +87,33 @@ h1 {
   font-family: 'Luckiest Guy', cursive;
   font-size: 24px;
   color: white
+}
+
+.directions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr
+}
+
+.arrow:nth-child(1n) {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.arrow:nth-child(2n) {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+.arrow:nth-child(3n) {
+  grid-column: 3/4;
+  grid-row: 2/3;
+}
+
+.arrow:nth-child(4n) {
+  grid-column: 2/3;
+  grid-row: 3/4;
 }
