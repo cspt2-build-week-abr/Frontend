@@ -7,6 +7,7 @@ import Header from './Components/Header';
 import RoomInventory from './Components/RoomInventory'
 import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
+import Footer from './Components/Footer'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <GraphPlaceholder />
         <PersonalInventory />
       </div>
+      <Footer />
     </div>
   );
 }
