@@ -65,6 +65,7 @@ class Map extends React.Component {
                 <LineSeries
                     data={edge}
                     color='red'
+                    key={Math.random()}
                 />
             ))}
             {/* return dots from coordinates */}
