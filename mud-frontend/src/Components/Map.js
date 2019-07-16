@@ -25,19 +25,33 @@ class Map extends React.Component {
         coords.push(rooms[room].coords)
     }
     
-    // get edges from sample room data
+    // get edges for a single room 
 
-    function checkExistingExits(room) {
+    function getRoomEdges(room) {
         var existingExits = []
+        var edges = []
+        // for every defined exit in a given room, add that room number to the existingExits array
         for (var exit in room.exits) {
             if (room.exits[exit] != '') {
-                existingExits += room.exits[exit]
+                existingExits.push(room.exits[exit])
             }
         }
-        console.log(existingExits)
+        // for every exit in the room, create an array with the selected room's coords at index 0 and then the exit's coords
+        existingExits.forEach(exit => {
+            edges.push([room.coords, rooms[exit].coords])
+        })
+        console.log(edges)
     }
-    
-    console.log(checkExistingExits({id: 0, coords: {x: 0, y: 0}, exits: {n: '1', s: '', e: '', w: ''}}))
+
+    getRoomEdges(rooms[4])
+
+    // get edges for all rooms
+
+    function getAllEdges(allRooms) {
+     
+    }
+
+    // var edges = [[{x: 0, y: 0}, {x: 0, y: 1}],[{x: 0, y: 1}, {x: 0, y: 2}], [{x: 0, y: 1}, {x: 1, y: 1}], [{x: 1, y: 1}, {x: 1, y: 2}]  ]
 
     // const edges  = rooms.map(room =>
     // )
@@ -45,9 +59,11 @@ class Map extends React.Component {
     return (
       <div>
         <XYPlot height={300} width={300}>
+            {/* return lines from edges */}
             {/* {edges.map(edge => (
                 <LineSeries
-                    // data={edge}
+                    data={edge}
+                    color='red'
                 />
             ))} */}
             {/* return dots from coordinates */}
