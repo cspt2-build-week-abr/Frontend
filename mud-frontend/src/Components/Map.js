@@ -40,35 +40,37 @@ class Map extends React.Component {
         existingExits.forEach(exit => {
             edges.push([room.coords, rooms[exit].coords])
         })
-        console.log(edges)
+        return edges
     }
-
-    getRoomEdges(rooms[4])
 
     // get edges for all rooms
 
     function getAllEdges(allRooms) {
-     
+        var allEdges = []
+        // for every room, merge into the resulting array all of the edges for each room
+        for (var room in allRooms) {
+            var roomEdges = getRoomEdges(allRooms[room])
+            allEdges = allEdges.concat(roomEdges)
+        }
+        return allEdges
     }
 
-    // var edges = [[{x: 0, y: 0}, {x: 0, y: 1}],[{x: 0, y: 1}, {x: 0, y: 2}], [{x: 0, y: 1}, {x: 1, y: 1}], [{x: 1, y: 1}, {x: 1, y: 2}]  ]
-
-    // const edges  = rooms.map(room =>
-    // )
+    var edges = getAllEdges(rooms)
 
     return (
       <div>
         <XYPlot height={300} width={300}>
             {/* return lines from edges */}
-            {/* {edges.map(edge => (
+            {edges.map(edge => (
                 <LineSeries
                     data={edge}
                     color='red'
                 />
-            ))} */}
+            ))}
             {/* return dots from coordinates */}
             <MarkSeries
                 data={coords}
+                color='blue'
             />
         </XYPlot>
       </div>
