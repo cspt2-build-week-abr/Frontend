@@ -6,7 +6,11 @@ import Header from './Components/Header';
 import RoomInventory from './Components/RoomInventory'
 import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
+<<<<<<< HEAD
+import Map from './Components/Map.js'
+=======
 import Footer from './Components/Footer'
+>>>>>>> 9550275247c2ac13a02acc25dee94843a1b4d4a1
 
 
 const url = "http://lambda-mud-test.herokuapp.com/api/adv/rooms";
