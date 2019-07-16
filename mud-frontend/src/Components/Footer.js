@@ -40,11 +40,11 @@ export class Footer extends Component {
                 <div className="content-section implementation">
                     <Dialog header="Okemonpay Dev Team" visible={this.state.visible} style={{width: '50vw'}} footer={footer} onHide={this.onHide}>
                             <div className='pics'>
-                                <div><a href='http://github.com/AbiFranklin' target="_blank"><img src={Abi} /><p>Abi Franklin</p></a></div>
-                                <div><a href='http://github.com/BrandonMoll' target="_blank"><img src={Brandon} /><p>Brandon Moll</p></a></div>
-                                <div><a href='http://github.com/bcabanayan' target="_blank"><img src={Bruce} /><p>Bruce Cabanayan</p></a></div>
-                                <div><a href='http://github.com/josepheastman' target="_blank"><img src={Joseph} /><p>Joseph Eastman</p></a></div>
-                                <div><a href='http://github.com/Ryntak94' target="_blank"><img src={Ryan} /><p>Ryan Matthews</p></a></div>
+                                <div><a href='http://github.com/AbiFranklin' target="_blank" rel="noopener noreferrer"><img src={Abi} alt="Dev Pic"/><p>Abi Franklin</p></a></div>
+                                <div><a href='http://github.com/BrandonMoll' target="_blank" rel="noopener noreferrer"><img src={Brandon} alt="Dev Pic"/><p>Brandon Moll</p></a></div>
+                                <div><a href='http://github.com/bcabanayan' target="_blank" rel="noopener noreferrer"><img src={Bruce} alt="Dev Pic"/><p>Bruce Cabanayan</p></a></div>
+                                <div><a href='http://github.com/josepheastman' target="_blank" rel="noopener noreferrer"><img src={Joseph} alt="Dev Pic"/><p>Joseph Eastman</p></a></div>
+                                <div><a href='http://github.com/Ryntak94' target="_blank" rel="noopener noreferrer"><img src={Ryan}alt="Dev Pic" /><p>Ryan Matthews</p></a></div>
                         </div>
                     </Dialog>
                 </div>

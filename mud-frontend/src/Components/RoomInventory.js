@@ -1,23 +1,31 @@
-import React from 'react'
+import React, {Component} from 'react';
 import {Card} from 'primereact/card';
 
-const RoomInventory = () => {
-    return (
-        <div className="roominventory">
-            <Card className="card" title="Item 1">
-            Pokem ipsum dolor sit amet Tail Whip Ninetales Cerulean City Rampardos Goldeen Sawsbuck.
-            </Card>
-            <Card className="card" title="Item 2">
-            Pokem ipsum dolor sit amet Tail Whip Ninetales Cerulean City Rampardos Goldeen Sawsbuck.
-            </Card>
-            <Card className="card" title="Item 3">
-            Pokem ipsum dolor sit amet Tail Whip Ninetales Cerulean City Rampardos Goldeen Sawsbuck.
-            </Card>
-            <Card className="card" title="Item 4">
-            Pokem ipsum dolor sit amet Tail Whip Ninetales Cerulean City Rampardos Goldeen Sawsbuck.
-            </Card>
-        </div>
-    )
+class RoomInventory extends Component {
+    constructor() {
+        super();
+        this.state = {};
+    }
+
+
+    render() {
+        const elements = [this.props.rooms];
+      
+        const items = []
+      
+        for (const [index] of elements.entries()) {
+          items.push(<Card title={index.id} key={index.id}>{index.id}</Card>)
+        }
+      
+        return (
+          <div className="roominventory">
+            <Card title='1' className='card'>1</Card>
+            <Card title='2' className='card'>2</Card>
+            <Card title='3' className='card'>3</Card>
+            <Card title='4' className='card'>4</Card>
+          </div>
+        )
+      }
 }
 
 export default RoomInventory;
