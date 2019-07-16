@@ -18,15 +18,17 @@ const opts = {
   export class App extends Component {
     constructor() {
         super();
-        this.state = {rooms: [{id: 1}, {id: 2}, {id: 3}],};
+        this.state = {
+          rooms: [{id: 1}, {id: 2}, {id: 3}]
+        };
     }
 
-    componentDidMount(){
-    fetch(url, opts)
-    .then(res => res.json())
-    .then(data => this.setState({rooms: data.rooms}))
-    .catch(console.error);
-    }
+    // componentDidMount(){
+    // fetch(url, opts)
+    // .then(res => res.json())
+    // .then(data => this.setState({rooms: data.rooms}))
+    // .catch(console.error);
+    // }
 
 
 
