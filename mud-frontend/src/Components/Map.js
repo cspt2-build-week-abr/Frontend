@@ -32,7 +32,7 @@ class Map extends React.Component {
         var edges = []
         // for every defined exit in a given room, add that room number to the existingExits array
         for (var exit in room.exits) {
-            if (room.exits[exit] != '') {
+            if (room.exits[exit] !== '') {
                 existingExits.push(room.exits[exit])
             }
         }
@@ -56,6 +56,7 @@ class Map extends React.Component {
     }
 
     var edges = getAllEdges(rooms)
+    console.log(edges)
 
     return (
       <div>
