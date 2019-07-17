@@ -13,8 +13,15 @@ class Map extends React.Component {
         3: {coords: {x: 1, y: 1}, exits: {n: '4', s: '', e: '', w: '1'}},
         4: {coords: {x: 1, y: 2}, exits: {n: '5', s: '3', e: '6', w: '2'}},
         5: {coords: {x: 1, y: 3}, exits: {n: '', s: '4', e: '', w: ''}},
-        6: {coords: {x: 2, y: 2}, exits: {n: '7', s: '', e: '', w: '4'}},
+        6: {coords: {x: 2, y: 2}, exits: {n: '7', s: '8', e: '12', w: '4'}},
         7: {coords: {x: 2, y: 3}, exits: {n: '', s: '6', e: '', w: ''}},
+        8: {coords: {x: 2, y: 1}, exits: {n: '6', s: '9', e: '', w: ''}},
+        9: {coords: {x: 2, y: 0}, exits: {n: '8', s: '10', e: '', w: ''}},
+        10: {coords: {x: 2, y: -1}, exits: {n: '9', s: '11', e: '', w: ''}},
+        11: {coords: {x: 2, y: -2}, exits: {n: '10', s: '', e: '', w: ''}},
+        12: {coords: {x: 3, y: 2}, exits: {n: '', s: '', e: '13', w: '6'}},
+        13: {coords: {x: 4, y: 2}, exits: {n: '', s: '', e: '14', w: '12'}},
+        14: {coords: {x: 5, y: 2}, exits: {n: '', s: '', e: '', w: '13'}},
     };
 
     // get coordinates from sample room data
