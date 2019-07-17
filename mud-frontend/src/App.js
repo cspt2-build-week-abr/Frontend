@@ -8,37 +8,39 @@ import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
 import Map from './Components/Map.js'
 import Footer from './Components/Footer'
+import room_list from './Components/dummydata'
 
-
-const url = "http://lambda-mud-test.herokuapp.com/api/adv/rooms";
-const opts = {
-  method: "GET",
-};
 
 
   export class App extends Component {
     constructor() {
         super();
         this.state = {
-          rooms: [{id: 1}, {id: 2}, {id: 3}]
+          rooms: room_list,
+          currentRoom: 0
         };
     }
 
-    // componentDidMount(){
-    // fetch(url, opts)
-    // .then(res => res.json())
-    // .then(data => this.setState({rooms: data.rooms}))
-    // .catch(console.error);
-    // }
+
+    goSouth = () => {
+        let room = this.state.currentRoom
+        let south = this.state.rooms[room][2][1]
+        if (south !== undefined) {
+          this.setState({ currentRoom: south })
+        } else {
+          alert('No room in that direction')
+        }
+    }
+
 
     render() {
       console.log(this.state.rooms)
       return (
         <div className="App">
-          <Header />
+          <Header room={this.state.rooms[this.state.currentRoom][1]}/>
           <RoomInventory rooms={this.state.rooms}/>
           <div className="lower">
-            <GraphPlaceholder />
+            <GraphPlaceholder goSouth={()=>this.goSouth}/>
             <PersonalInventory />
           </div>
           <Footer />

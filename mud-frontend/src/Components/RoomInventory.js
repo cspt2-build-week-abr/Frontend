@@ -12,13 +12,16 @@ class RoomInventory extends Component {
           return (
             <Card 
                 className='card'
-                key={room.id} 
-                title={room.id}
-            >{room.id}</Card>
+                key={room} 
+                title={room[1]}
+            >{room[1]}</Card>
           );
         });
         
             return (
+                // <div className='roominventory'>
+                // {this.props.rooms}
+                // </div>
                 <div className="roominventory">{Items}</div>
             );
         }
