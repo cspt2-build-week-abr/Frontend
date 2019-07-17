@@ -171,7 +171,7 @@ class Map extends React.Component {
 
     return (
       <div>
-        <XYPlot height={300} width={300}>
+        <XYPlot height={425} width={675}>
             {/* return lines from edges */}
             {edges.map(edge => (
                 <LineSeries
