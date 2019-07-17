@@ -6,6 +6,7 @@ import Header from './Components/Header';
 import RoomInventory from './Components/RoomInventory'
 import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
+import Map from './Components/Map.js'
 import Footer from './Components/Footer'
 import room_list from './Components/dummydata'
 
@@ -19,6 +20,7 @@ import room_list from './Components/dummydata'
           currentRoom: 0
         };
     }
+
 
     goSouth = () => {
         let room = this.state.currentRoom

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Card} from 'primereact/card';
 import Arrows from './Arrows'
+import Map from './Map.js'
+
 
 class GraphPlaceholder extends Component {
     constructor() {
@@ -14,9 +16,9 @@ class GraphPlaceholder extends Component {
     return (
         <div className="placeholder">
             <Card title="Graph" className="placeholder">
-                <h2>Graph Goes Here </h2>
+                <Map />
                 <Arrows goSouth={this.props.goSouth()}/>
-            </Card>
+            </Card
         </div>
     )}
 }
