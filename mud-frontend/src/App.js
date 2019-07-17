@@ -7,29 +7,17 @@ import RoomInventory from './Components/RoomInventory'
 import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
 import Footer from './Components/Footer'
+import room_list from './Components/dummydata'
 
-
-const url = "http://lambda-mud-test.herokuapp.com/api/adv/rooms";
-const opts = {
-  method: "GET",
-};
 
 
   export class App extends Component {
     constructor() {
         super();
         this.state = {
-          rooms: [{id: 1}, {id: 2}, {id: 3}]
+          rooms: room_list
         };
     }
-
-    // componentDidMount(){
-    // fetch(url, opts)
-    // .then(res => res.json())
-    // .then(data => this.setState({rooms: data.rooms}))
-    // .catch(console.error);
-    // }
-
 
 
     render() {
