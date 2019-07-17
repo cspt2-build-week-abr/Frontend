@@ -6,4 +6,3 @@ const room_list = [
 ]
 
 export default room_list
-

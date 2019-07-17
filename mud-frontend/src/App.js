@@ -15,8 +15,19 @@ import room_list from './Components/dummydata'
     constructor() {
         super();
         this.state = {
-          rooms: room_list
+          rooms: room_list,
+          currentRoom: 0
         };
+    }
+
+    goSouth = () => {
+        let room = this.state.currentRoom
+        let south = this.state.rooms[room][2][1]
+        if (south !== undefined) {
+          this.setState({ currentRoom: south })
+        } else {
+          alert('No room in that direction')
+        }
     }
 
 
@@ -24,10 +35,10 @@ import room_list from './Components/dummydata'
       console.log(this.state.rooms)
       return (
         <div className="App">
-          <Header />
+          <Header room={this.state.rooms[this.state.currentRoom][1]}/>
           <RoomInventory rooms={this.state.rooms}/>
           <div className="lower">
-            <GraphPlaceholder />
+            <GraphPlaceholder goSouth={()=>this.goSouth}/>
             <PersonalInventory />
           </div>
           <Footer />
