@@ -15,10 +15,10 @@ class GraphPlaceholder extends Component {
     render(){
     return (
         <div className="placeholder">
-            <Card title="Graph" className="placeholder">
+            <Card title="Okemonpay World" className="map">
                 <Map />
                 <Arrows goSouth={this.props.goSouth()}/>
-            </Card
+            </Card>
         </div>
     )}
 }
