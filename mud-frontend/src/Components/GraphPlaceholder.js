@@ -1,19 +1,30 @@
-import React from 'react'
+import React, {Component} from 'react';
 import {Card} from 'primereact/card';
 import Arrows from './Arrows'
 import Map from './Map.js'
 
 
-const GraphPlaceholder = () => {
+class GraphPlaceholder extends Component {
+    constructor() {
+        super();
+        this.state = {
+
+        };
+    }
+
+    render(){
     return (
         <div className="placeholder">
-            <Card title="Graph" className="placeholder">
-                {/* <h2>Graph Goes Here </h2> */}
+            <Card title="Okemonpay World" className="map">
                 <Map />
-                <Arrows />
+                <Arrows
+                goNorth={this.props.goNorth()}
+                goSouth={this.props.goSouth()}
+                goEast={this.props.goEast()}
+                goWest={this.props.goWest()}/>
             </Card>
         </div>
-    )
+    )}
 }
 
 export default GraphPlaceholder;
