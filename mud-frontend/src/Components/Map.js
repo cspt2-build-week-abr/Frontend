@@ -6,7 +6,14 @@ import rooms from '../Data/rooms.js'
 
 
 class Map extends React.Component {
-  render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentLocation: [{x: 4, y: 5}]
+        }
+    }
+  
+    render() {
 
     // get coordinates from sample room data
 
@@ -64,6 +71,10 @@ class Map extends React.Component {
             <MarkSeries
                 data={coords}
                 color='#6146B1'
+            />
+            <MarkSeries
+                data={this.state.currentLocation}
+                color='#E55740'
             />
         </XYPlot>
       </div>
