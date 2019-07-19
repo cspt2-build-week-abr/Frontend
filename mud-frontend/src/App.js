@@ -22,14 +22,44 @@ import { Query } from "react-apollo"
     }
 
 
-    goSouth = () => {
+    goNorth = () => {
+        let room = this.state.currentRoom
+        let north = this.state.rooms[room][2][0]
+        // if (south !== undefined) {
+        //   this.setState({ currentRoom: south })
+        // } else {
+          alert('North')
+        // }
+    }
+
+      goSouth = () => {
         let room = this.state.currentRoom
         let south = this.state.rooms[room][2][1]
-        if (south !== undefined) {
-          this.setState({ currentRoom: south })
-        } else {
-          alert('No room in that direction')
-        }
+        // if (south !== undefined) {
+        //   this.setState({ currentRoom: south })
+        // } else {
+          alert('South')
+        // }
+    }
+
+    goEast = () => {
+      let room = this.state.currentRoom
+      let east = this.state.rooms[room][2][2]
+      // if (south !== undefined) {
+      //   this.setState({ currentRoom: south })
+      // } else {
+        alert('East')
+      // }
+  }
+
+    goWest = () => {
+      let room = this.state.currentRoom
+      let west = this.state.rooms[room][2][3]
+      // if (south !== undefined) {
+      //   this.setState({ currentRoom: south })
+      // } else {
+        alert('West')
+      // }
     }
 
 
@@ -39,14 +69,17 @@ import { Query } from "react-apollo"
       return (
         <div className="App">
 
-                <Header room={this.state.rooms[this.state.currentRoom][1]}/>
-                <RoomInventory rooms={this.state.rooms}/>
-                <div className="lower">
-                  <GraphPlaceholder goSouth={()=>this.goSouth}/>
-                  <PersonalInventory />
-                </div>
-                <Footer />
-
+          <Header room={this.state.rooms[this.state.currentRoom][1]}/>
+          <RoomInventory rooms={this.state.rooms}/>
+          <div className="lower">
+            <GraphPlaceholder
+              goNorth={()=>this.goNorth}
+              goSouth={()=>this.goSouth}
+              goEast={()=>this.goEast}
+              goWest={()=>this.goWest}/>
+            <PersonalInventory />
+          </div>
+          <Footer />
         </div>
       );
     }

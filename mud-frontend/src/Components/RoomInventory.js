@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Card} from 'primereact/card';    
+import {Card} from 'primereact/card';
+import {Button} from 'primereact/button'
 
 class RoomInventory extends Component {
     constructor() {
@@ -14,6 +15,7 @@ class RoomInventory extends Component {
                 className='card'
                 key={room} 
                 title={room[1]}
+                footer={<Button label="Add to Inventory" className="p-button-rounded p-button-secondary" />}
             >{room[1]}</Card>
           );
         });
