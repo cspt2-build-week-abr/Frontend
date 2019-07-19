@@ -1,3 +1,5 @@
+// this component displays the map of the rooms and the player's current location
+
 import React  from 'react';
 import '../App.css';
 import '../../node_modules/react-vis/dist/style.css';
@@ -16,7 +18,7 @@ class Map extends React.Component {
   
     render() {
 
-    // get coordinates from sample room data
+    // get coordinates from the room data--used to display rooms
 
     var coords = []
 
@@ -24,7 +26,7 @@ class Map extends React.Component {
         coords.push(rooms[room].coords)
     }
     
-    // get edges for a single room 
+    // get edges (existing exits) for a single room 
 
     function getRoomEdges(room) {
         var existingExits = []
@@ -42,7 +44,7 @@ class Map extends React.Component {
         return edges
     }
 
-    // get edges for all rooms
+    // compile the edges for all rooms--used to display paths between rooms
 
     function getAllEdges(allRooms) {
         var allEdges = []
@@ -55,12 +57,11 @@ class Map extends React.Component {
     }
 
     var edges = getAllEdges(rooms)
-    console.log(edges)
 
     return (
       <div>
         <FlexibleXYPlot height={415}>
-            {/* return lines from edges */}
+            {/* display paths using edges */}
             {edges.map(edge => (
                 <LineSeries
                     data={edge}
@@ -68,12 +69,12 @@ class Map extends React.Component {
                     key={Math.random()}
                 />
             ))}
-            {/* return dots from coordinates */}
+            {/* display rooms using coordinates */}
             <MarkSeries
                 data={coords}
                 color='#6146B1'
             />
-            {/* return user's current location */}
+            {/* display user's current location */}
             <MarkSeries
                 data={this.state.currentLocation}
                 color='#E55740'
