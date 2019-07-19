@@ -9,8 +9,8 @@ import PersonalInventory from './Components/Inventory'
 import Map from './Components/Map.js'
 import Footer from './Components/Footer'
 import room_list from './Components/dummydata'
-
-
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo"
 
   export class App extends Component {
     constructor() {
@@ -65,8 +65,10 @@ import room_list from './Components/dummydata'
 
     render() {
       console.log(this.state.rooms)
+
       return (
         <div className="App">
+
           <Header room={this.state.rooms[this.state.currentRoom][1]}/>
           <RoomInventory rooms={this.state.rooms}/>
           <div className="lower">
@@ -84,3 +86,13 @@ import room_list from './Components/dummydata'
 }
 
 export default App;
+// <Query
+//     query={gql`
+//         {
+//             allAreas {
+//                 name
+//             }
+//         }
+//         `}
+//         >
+// </Query>
