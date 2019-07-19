@@ -14,7 +14,8 @@ import { gql } from "apollo-boost";
     constructor() {
         super();
         this.state = {
-          rooms: {},
+          rooms: room_list,
+          currentRoom: 0,
           user: {}
         };
     }
