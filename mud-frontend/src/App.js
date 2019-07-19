@@ -25,7 +25,26 @@ import { gql } from "apollo-boost";
         };
     }
 
-    
+    signUp = (username, password) => {
+      this.props.client
+        .mutate({
+          mutation: gql`
+            {
+              createUser(username: ${username}, password: ${password}) {
+                user {
+                  userId
+                  username
+                  areaId
+                }
+              }
+            }
+          `
+        }).then((result) => console.log(result))
+    }
+
+    logIn = (username, password) => {
+      console.log(username, password)
+    }
 
     goNorth = () => {
         let room = this.state.currentRoom
@@ -74,7 +93,11 @@ import { gql } from "apollo-boost";
       return (
         <div className="App">
 
-          <Header room={this.state.rooms[this.state.currentRoom][1]}/>
+          <Header 
+            room={this.state.rooms[this.state.currentRoom][1]}
+            signUp={this.signUp}
+            logIn={this.logIn}
+          />
           <RoomInventory rooms={this.state.rooms}/>
           <div className="lower">
             <GraphPlaceholder
