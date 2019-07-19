@@ -3,10 +3,10 @@
 import React  from 'react';
 import '../App.css';
 import '../../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries, MarkSeries, makeVisFlexible} from 'react-vis';
+import {XYPlot, LineSeries, MarkSeries, makeWidthFlexible} from 'react-vis';
 import rooms from '../Data/rooms.js'
 
-const FlexibleXYPlot = makeVisFlexible(XYPlot)
+const FlexibleXYPlot = makeWidthFlexible(XYPlot)
 
 class Map extends React.Component {
     constructor(props) {
@@ -60,7 +60,7 @@ class Map extends React.Component {
 
     return (
       <div>
-        <FlexibleXYPlot height={415}>
+        <XYPlot width={675} height={415}>
             {/* display paths using edges */}
             {edges.map(edge => (
                 <LineSeries
@@ -79,7 +79,7 @@ class Map extends React.Component {
                 data={this.state.currentLocation}
                 color='#E55740'
             />
-        </FlexibleXYPlot>
+        </XYPlot>
       </div>
     );
   }

@@ -16,10 +16,16 @@ import { gql } from "apollo-boost";
         this.state = {
           rooms: room_list,
           currentRoom: 0,
-          user: {}
+          user: {
+            userId: '',
+            username: '',
+            items: [],
+            currentLocation: ''
+          }
         };
     }
 
+    
 
     goNorth = () => {
         let room = this.state.currentRoom
