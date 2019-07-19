@@ -7,7 +7,7 @@ import ApolloClient, { gql } from "apollo-boost";
 import { ApolloProvider } from 'react-apollo'
 
 const client = new ApolloClient({
-    uri: "http://localhost:8000/graphql"
+    uri: "https://mud-pokemon.herokuapp.com/graphql"
 })
 
 
