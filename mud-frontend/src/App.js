@@ -26,24 +26,37 @@ import { gql } from "apollo-boost";
     }
 
     signUp = (username, password) => {
+      let mutation = gql`
+        mutation($username: String! $password: String!) {
+          createUser(
+            username: $username
+            password: $password
+          ){
+            user {
+              username
+              password
+            }
+          }
+        }
+      `
       this.props.client
-        .mutate({
-          mutation: gql`
+        .mutate({mutation, variables: {username: username, password: password}}).then((result) => console.log(result))
+    }
+
+    logIn = (username, password) => {
+      this.props.client
+        .query({
+          query: gql`
             {
-              createUser(username: ${username}, password: ${password}) {
-                user {
-                  userId
-                  username
-                  areaId
-                }
+              users {
+                username
+                userId
+                items
+                areaId
               }
             }
           `
         }).then((result) => console.log(result))
-    }
-
-    logIn = (username, password) => {
-      console.log(username, password)
     }
 
     goNorth = () => {
