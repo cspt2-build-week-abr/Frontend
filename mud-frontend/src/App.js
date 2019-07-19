@@ -6,18 +6,16 @@ import Header from './Components/Header';
 import RoomInventory from './Components/RoomInventory'
 import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
-import Map from './Components/Map.js'
 import Footer from './Components/Footer'
 import room_list from './Components/dummydata'
 import { gql } from "apollo-boost";
-import { Query } from "react-apollo"
 
   export class App extends Component {
     constructor() {
         super();
         this.state = {
-          rooms: room_list,
-          currentRoom: 0
+          rooms: {},
+          user: {}
         };
     }
 
