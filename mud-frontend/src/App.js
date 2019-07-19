@@ -21,44 +21,56 @@ import { gql } from "apollo-boost";
     }
 
 
-    goNorth = () => {
+    goNorth = (e) => {
         let room = this.state.currentRoom
         let north = this.state.rooms[room][2][0]
-        // if (south !== undefined) {
-        //   this.setState({ currentRoom: south })
-        // } else {
-          alert('North')
-        // }
+        if (e.keyCode == 38) {
+          if(north) {
+            this.setState({ currentRoom: this.state.rooms[room][2][0]})
+            alert('Going north')
+          } else {
+            alert('There is no room in that direction')
+          }
+        } 
     }
 
-      goSouth = () => {
+      goSouth = (e) => {
         let room = this.state.currentRoom
-        let south = this.state.rooms[room][2][1]
-        // if (south !== undefined) {
-        //   this.setState({ currentRoom: south })
-        // } else {
-          alert('South')
-        // }
+        let south = this.state.rooms[room][2][0]
+        if (e.keyCode == 38) {
+          if(south) {
+            this.setState({ currentRoom: this.state.rooms[room][2][0]})
+            alert('Going south')
+          } else {
+            alert('There is no room in that direction')
+          }
+        } 
     }
 
-    goEast = () => {
+    goEast = (e) => {
       let room = this.state.currentRoom
-      let east = this.state.rooms[room][2][2]
-      // if (south !== undefined) {
-      //   this.setState({ currentRoom: south })
-      // } else {
-        alert('East')
-      // }
+      let east = this.state.rooms[room][2][0]
+      if (e.keyCode == 38) {
+        if(east) {
+          this.setState({ currentRoom: this.state.rooms[room][2][0]})
+          alert('Going east')
+        } else {
+          alert('There is no room in that direction')
+        }
+      } 
   }
 
-    goWest = () => {
-      let room = this.state.currentRoom
-      let west = this.state.rooms[room][2][3]
-      // if (south !== undefined) {
-      //   this.setState({ currentRoom: south })
-      // } else {
-        alert('West')
-      // }
+    goWest = (e) => {
+        let room = this.state.currentRoom
+        let west = this.state.rooms[room][2][0]
+        if (e.keyCode == 38) {
+          if(west) {
+            this.setState({ currentRoom: this.state.rooms[room][2][0]})
+            alert('Going west')
+          } else {
+            alert('There is no room in that direction')
+          }
+        } 
     }
 
 

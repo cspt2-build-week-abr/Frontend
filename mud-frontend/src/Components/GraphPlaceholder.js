@@ -18,10 +18,10 @@ class GraphPlaceholder extends Component {
             <Card title="Okemonpay World" className="map">
                 <Map />
                 <Arrows
-                goNorth={this.props.goNorth()}
-                goSouth={this.props.goSouth()}
-                goEast={this.props.goEast()}
-                goWest={this.props.goWest()}/>
+                goNorth={this.props.goNorth}
+                goSouth={this.props.goSouth}
+                goEast={this.props.goEast}
+                goWest={this.props.goWest}/>
             </Card>
         </div>
     )}
