@@ -47,7 +47,7 @@ class Map extends React.Component {
     }
 
     var edges = getAllEdges(rooms)
-    console.log(edges)
+    // console.log(edges)
 
     return (
       <div>

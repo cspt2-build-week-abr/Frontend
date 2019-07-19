@@ -20,6 +20,28 @@ import { gql } from "apollo-boost";
         };
     }
 
+    componentWillMount(){
+      this.props.client
+      .query({
+        query: gql`
+          {
+            allAreas {
+              name
+              pokeballs
+              pokemon
+              coords
+              exits
+              players
+            }
+          }
+        `
+      })
+      .then(result => this.setState({ rooms: result.data }));
+    }
+
+
+
+    
 
     goNorth = (e) => {
         let room = this.state.currentRoom
@@ -75,13 +97,15 @@ import { gql } from "apollo-boost";
 
 
     render() {
-      console.log(this.state.rooms)
+      if (this.state.rooms.allAreas !== undefined ) {
+      console.log('This array', this.state.rooms['allAreas'][0]['exits'].split(':'))
+      }
 
       return (
         <div className="App">
 
-          <Header room={this.state.rooms[this.state.currentRoom][1]}/>
-          <RoomInventory rooms={this.state.rooms}/>
+          <Header />
+         
           <div className="lower">
             <GraphPlaceholder
               goNorth={()=>this.goNorth}
