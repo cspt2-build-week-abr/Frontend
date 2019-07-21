@@ -19,7 +19,7 @@ class RoomInventory extends Component {
         //     >{room[1]}</Card>
         //   );
         // });
-        if (this.props.pokeballs === '[]' && this.props.pokemon === '[]') {
+        if (this.props.pokeballs.length === 0 && this.props.pokemon.length === 0) {
             return (<div className="roominventory"><h1>Oh no! This room is empty!</h1></div>)
         } else {
             return (

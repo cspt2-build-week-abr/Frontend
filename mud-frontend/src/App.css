@@ -64,7 +64,7 @@ h1 {
 .roominventory .p-card-title {
   font-family: 'Luckiest Guy', cursive;
   font-size: 24px;
-  color: white
+  color: white;
 }
 
 .card:nth-of-type(1n) {
@@ -96,7 +96,11 @@ h1 {
   width: 65vw;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
+}
+
+.graph {
+  margin-top: 30px;
 }
 
 .map .p-card-title {
