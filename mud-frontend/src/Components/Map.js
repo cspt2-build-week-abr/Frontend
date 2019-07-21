@@ -47,10 +47,10 @@ class Map extends React.Component {
     }
 
     var edges = getAllEdges(rooms)
-    // console.log(edges)
+    console.log(edges)
 
     return (
-      <div>
+      <div className='graph'>
         <XYPlot height={415} width={690}>
             {/* return lines from edges */}
             {edges.map(edge => (
