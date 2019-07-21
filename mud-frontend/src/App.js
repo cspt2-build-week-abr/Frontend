@@ -38,7 +38,10 @@ import {ProgressSpinner} from 'primereact/progressspinner';
           }
         `
       })
-      .then(result => this.setState({ rooms: result.data }))
+
+      .then(results => {
+        this.setState({ rooms: results.data })
+      })
       .then(this.setState({ loading: false }))
     }
 
@@ -49,7 +52,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
     goNorth = (e) => {
         let room = this.state.currentRoom
         let north = this.state.rooms[room][2][0]
-        if (e.keyCode == 38) {
+        if (e.keyCode === 38) {
           if(north) {
             this.setState({ currentRoom: this.state.rooms[room][2][0]})
             alert('Going north')
@@ -62,7 +65,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
       goSouth = (e) => {
         let room = this.state.currentRoom
         let south = this.state.rooms[room][2][0]
-        if (e.keyCode == 38) {
+        if (e.keyCode === 38) {
           if(south) {
             this.setState({ currentRoom: this.state.rooms[room][2][0]})
             alert('Going south')
@@ -75,7 +78,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
     goEast = (e) => {
       let room = this.state.currentRoom
       let east = this.state.rooms[room][2][0]
-      if (e.keyCode == 38) {
+      if (e.keyCode === 38) {
         if(east) {
           this.setState({ currentRoom: this.state.rooms[room][2][0]})
           alert('Going east')
@@ -88,7 +91,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
     goWest = (e) => {
         let room = this.state.currentRoom
         let west = this.state.rooms[room][2][0]
-        if (e.keyCode == 38) {
+        if (e.keyCode === 38) {
           if(west) {
             this.setState({ currentRoom: this.state.rooms[room][2][0]})
             alert('Going west')
@@ -101,15 +104,12 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     render() {
       if (this.state.rooms.allAreas !== undefined ) {
-      console.log('This array', this.state.rooms['allAreas'][this.state.currentRoom]['name'])
-      }
-
-      if (this.state.rooms.allAreas !== undefined ) {
       return (
         <div className="App">
 
           <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
-         
+         <RoomInventory pokemon={JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokemon'])}
+          pokeballs={JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokeballs'])}/>
           <div className="lower">
             <GraphPlaceholder
               goNorth={()=>this.goNorth}
