@@ -19,15 +19,15 @@ class RoomInventory extends Component {
             this.props.pokeballs.map(item => roomstuff.push(item))
             return (
                 <div className='roominventory'>
-            {roomstuff.map((item) => {
-            return (
-                <Card 
-                className='card'
-                key={item} 
-                title={item}
-                footer={<Button label="Add to Inventory" className="p-button-rounded p-button-secondary" onClick={() => this.props.inventoryItem(item)}/>}
-            >{item}</Card>
-            )})}
+                    {roomstuff.map((item) => {
+                    return (
+                        <Card 
+                        className='card'
+                        key={item} 
+                        title={item}
+                        footer={<Button label="+" className="p-button-rounded p-button-secondary" onClick={() => this.props.inventoryItem(item)}/>}
+                    >{item}</Card>
+                    )})}
             </div>)
         }
     }
