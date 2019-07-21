@@ -18,8 +18,12 @@ import {ProgressSpinner} from 'primereact/progressspinner';
         this.state = {
           rooms: room_list,
           currentRoom: 0,
-          user: {},
-          loading: true
+          user: {
+            inventory: []
+          },
+          loading: true,
+          pokeballs: [1, 2, 3],
+          pokemon: [4, 5, 6]
         };
     }
 
@@ -86,6 +90,20 @@ import {ProgressSpinner} from 'primereact/progressspinner';
         }
     }
 
+    addToInventory = (item) => {
+      this.state.user.inventory.push(item)
+      var pokemon = this.state.pokemon;
+      var newPokemon = pokemon.filter(function(item) {
+      return  ;
+      }
+     for( var i = 0; i < this.state.pokeballs.length; i++){ 
+      if ( this.state.pokeballs[i] === item) {
+        this.setState({ pokeballs: this.state.pokeballs.splice(i, 1) }) 
+      }
+   }
+    }
+
+
     render() {
       
       if (this.state.rooms.allAreas !== undefined ) {
@@ -93,15 +111,16 @@ import {ProgressSpinner} from 'primereact/progressspinner';
         <div className="App">
 
           <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
-         <RoomInventory pokemon={JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokemon'])}
-          pokeballs={JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokeballs'])}/>
+         <RoomInventory pokemon={this.state.pokemon}
+          pokeballs={this.state.pokeballs}
+          inventoryItem = {this.addToInventory}/>
           <div className="lower">
             <GraphPlaceholder
               goNorth={this.goNorth}
               goSouth={this.goSouth}
               goEast={this.goEast}
               goWest={this.goWest}/>
-            <PersonalInventory />
+            <PersonalInventory inventory={this.state.user.inventory}/>
           </div>
           <Footer />
         </div>
@@ -127,3 +146,10 @@ export default App;
 //         `}
 //         >
 // </Query>
+
+
+
+
+
+// JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokemon'])
+// JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokeballs'])

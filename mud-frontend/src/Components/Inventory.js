@@ -1,19 +1,35 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Card} from 'primereact/card';
 
-const PersonalInventory = () => {
-    return (
-        <div>
+class PersonalInventory extends Component {
+    constructor() {
+        super();
+        this.state = {
+
+        };
+    }
+    render(){
+        if (this.props.inventory.length > 0) {
+        return (
+            <div>
             <Card header="Personal Inventory" className="inventory">
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                </ul>
+                <span className='collected'>{this.props.inventory.length}/100 Collected!</span>
+                {this.props.inventory.map((item) => {
+                    return <li>{item}</li>
+                })}
             </Card>
-        </div>
-    )
+            </div>
+        )} else {
+            return (
+                <div>
+                 <Card header="Personal Inventory" className="inventory">
+                 <span className='collected'>{this.props.inventory.length}/100 Collected!</span>
+                  <h2>Your inventory is empty</h2>
+                  </Card>
+                  </div>
+            )
+        }
+    }
 }
 
 export default PersonalInventory;
