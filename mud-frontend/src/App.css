@@ -52,6 +52,10 @@ h1 {
   padding-right: 50px;
 }
 
+.roominventory h1 {
+  color: black;
+}
+
 .card {
   width: 20%;
   color: white !important;

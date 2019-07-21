@@ -39,7 +39,10 @@ import {ProgressSpinner} from 'primereact/progressspinner';
           }
         `
       })
-      .then(result => this.setState({ rooms: result.data }))
+
+      .then(results => {
+        this.setState({ rooms: results.data })
+      })
       .then(this.setState({ loading: false }))
     }
 
@@ -84,11 +87,13 @@ import {ProgressSpinner} from 'primereact/progressspinner';
     }
 
     render() {
+      if (this.state.rooms.allAreas !== undefined ) {
       return (
         <div className="App">
 
           <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
-         
+         <RoomInventory pokemon={JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokemon'])}
+          pokeballs={JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokeballs'])}/>
           <div className="lower">
             <GraphPlaceholder
               goNorth={this.goNorth}
