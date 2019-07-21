@@ -18,6 +18,8 @@ class Map extends React.Component {
     
     // get edges for a single room 
 
+    let coords2 = coords[this.props.currentRoom]
+
     function getRoomEdges(room) {
         var existingExits = []
         var edges = []
@@ -63,9 +65,11 @@ class Map extends React.Component {
             {/* return dots from coordinates */}
             <MarkSeries
                 data={coords}
-                color='#6146B1'
+                color='blue'
             />
+
         </XYPlot>
+        
       </div>
     );
   }

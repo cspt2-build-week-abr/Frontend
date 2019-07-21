@@ -116,7 +116,8 @@ import {ProgressSpinner} from 'primereact/progressspinner';
               goNorth={this.goNorth}
               goSouth={this.goSouth}
               goEast={this.goEast}
-              goWest={this.goWest}/>
+              goWest={this.goWest}
+              currentRoom={this.state.currentRoom}/>
             <PersonalInventory inventory={this.state.user.inventory}/>
           </div>
           <Footer />

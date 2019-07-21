@@ -7,12 +7,13 @@ class PersonalInventory extends Component {
         this.state = {
 
         };
+    
     }
     render(){
         if (this.props.inventory.length > 0) {
         return (
             <div>
-            <Card header="Personal Inventory" className="inventory">
+            <Card header='Personal Inventory' className="inventory">
                 <span className='collected'>{this.props.inventory.length}/100 Collected!</span>
                 {this.props.inventory.map((item) => {
                     return <li>{item}</li>

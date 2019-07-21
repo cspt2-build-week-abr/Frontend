@@ -16,7 +16,7 @@ class GraphPlaceholder extends Component {
     return (
         <div className="placeholder">
             <Card title="Okemonpay World" className="map">
-                <Map />
+                <Map currentRoom={this.props.currentRoom}/>
                 <Arrows
                 goNorth={this.props.goNorth}
                 goSouth={this.props.goSouth}
