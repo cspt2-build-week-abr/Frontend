@@ -20,7 +20,8 @@ import { gql } from "apollo-boost";
             userId: '',
             username: '',
             items: [],
-            currentLocation: [{x: 4, y: 5}]
+            currentLocation: [{x: 4, y: 5}],
+            areaId: ''
           }
         };
     }
@@ -58,7 +59,7 @@ import { gql } from "apollo-boost";
               }
             }
           `
-        }).then((result) => console.log(result))
+        }).then((result) => this.setState({areaId: result.data.users[0].areaId}, () => console.log(this.state.areaId)))
     }
 
     goNorth = () => {
