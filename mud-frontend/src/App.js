@@ -92,15 +92,12 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     addToInventory = (item) => {
       this.state.user.inventory.push(item)
-      var pokemon = this.state.pokemon;
-      var newPokemon = pokemon.filter(function(item) {
-      return  ;
+      function isNotItem(value) {
+        return value !== item;
       }
-     for( var i = 0; i < this.state.pokeballs.length; i++){ 
-      if ( this.state.pokeballs[i] === item) {
-        this.setState({ pokeballs: this.state.pokeballs.splice(i, 1) }) 
-      }
-   }
+      
+      this.setState({ pokemon: this.state.pokemon.filter(isNotItem)}) 
+      this.setState({ pokeballs: this.state.pokeballs.filter(isNotItem)}) 
     }
 
 
