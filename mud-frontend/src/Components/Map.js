@@ -76,7 +76,7 @@ class Map extends React.Component {
             />
             {/* display user's current location */}
             <MarkSeries
-                data={this.state.currentLocation}
+                data={this.props.currentLocation}
                 color='#E55740'
             />
         </XYPlot>

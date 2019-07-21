@@ -20,7 +20,7 @@ import { gql } from "apollo-boost";
             userId: '',
             username: '',
             items: [],
-            currentLocation: ''
+            currentLocation: [{x: 4, y: 5}]
           }
         };
     }
@@ -42,6 +42,8 @@ import { gql } from "apollo-boost";
       this.props.client
         .mutate({mutation, variables: {username: username, password: password}}).then((result) => console.log(result))
     }
+
+    // NEED TO FINISH BUILDING OUT FUNCTIONALITY TO QUERY DATABASE FOR LOG IN
 
     logIn = (username, password) => {
       this.props.client
@@ -117,7 +119,8 @@ import { gql } from "apollo-boost";
               goNorth={()=>this.goNorth}
               goSouth={()=>this.goSouth}
               goEast={()=>this.goEast}
-              goWest={()=>this.goWest}/>
+              goWest={()=>this.goWest}
+              currentLocation={this.state.user.currentLocation}/>
             <PersonalInventory />
           </div>
           <Footer />
