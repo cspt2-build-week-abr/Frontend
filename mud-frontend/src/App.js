@@ -10,6 +10,7 @@ import Footer from './Components/Footer'
 import room_list from './Components/dummydata'
 import rooms from './Data/rooms'
 import { gql } from "apollo-boost";
+import {ProgressSpinner} from 'primereact/progressspinner';
 
   export class App extends Component {
     constructor() {
@@ -17,11 +18,12 @@ import { gql } from "apollo-boost";
         this.state = {
           rooms: room_list,
           currentRoom: 0,
-          user: {}
+          user: {},
+          loading: true
         };
     }
 
-    componentWillMount(){
+    componentDidMount(){
       this.props.client
       .query({
         query: gql`
@@ -37,7 +39,8 @@ import { gql } from "apollo-boost";
           }
         `
       })
-      .then(result => this.setState({ rooms: result.data }));
+      .then(result => this.setState({ rooms: result.data }))
+      .then(this.setState({ loading: false }))
     }
 
 
@@ -81,13 +84,10 @@ import { gql } from "apollo-boost";
     }
 
     render() {
-      if (this.state.rooms.allAreas !== undefined ) {
-        console.log('This array', this.state.currentRoom)
-        }
       return (
         <div className="App">
 
-          <Header />
+          <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
          
           <div className="lower">
             <GraphPlaceholder
@@ -99,7 +99,14 @@ import { gql } from "apollo-boost";
           </div>
           <Footer />
         </div>
-      );
+      );} else {
+        return (
+          <div className="loading">
+          <h1>Loading</h1>
+          <ProgressSpinner />
+          </div>
+        )
+      }
     }
 }
 
