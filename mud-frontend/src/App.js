@@ -273,6 +273,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     render() {
       if (this.state.rooms.allAreas !== undefined ) {
+        console.log(this.state.rooms)
         if (this.state.rooms.allAreas[this.state.currentRoom] !== undefined ) {
       return (
         <div className="App">

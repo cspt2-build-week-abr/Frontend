@@ -51,6 +51,7 @@ h1 {
   padding-left: 50px;
   padding-right: 50px;
   overflow-x: scroll;
+  overflow-y: hidden;
   flex-wrap: nowrap
 }
 
@@ -60,7 +61,7 @@ h1 {
 
 .card {
   width: 20%;
-  height: 130px;
+  height: 15vh;
   color: white !important;
   display: inline-block;
 }
@@ -69,6 +70,7 @@ h1 {
   font-family: 'Luckiest Guy', cursive;
   font-size: 24px;
   color: white;
+  margin-bottom: -5px;
 }
 
 .card:nth-of-type(1n) {
@@ -104,7 +106,7 @@ h1 {
 
 .map {
   position: relative;
-  height: 60vh;
+  height: 50vh;
   width: 65vw;
   display: flex;
   justify-content: center;
@@ -112,19 +114,19 @@ h1 {
 }
 
 .graph {
-  margin-top: 30px;
+  height: 30vh
 }
 
 .map .p-card-title {
   font-family: 'Luckiest Guy', cursive;
-  font-size: 36px;
+  font-size: 24px;
   position: absolute;
   top: 10px;
   left: 10px;
 }
 
 .inventory {
-  height: 60vh;
+  height: 50vh;
   width: 30vw;
 }
 
