@@ -56,7 +56,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     goNorth = () => {
       let north = rooms[this.state.currentRoom]['exits']['n']
-        if(north>-1) {
+        if(north !== '') {
           this.setState({ currentRoom: north})
         } else {
           alert('There is no room in that direction')
@@ -65,7 +65,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
       goSouth = () => {
         let south = rooms[this.state.currentRoom]['exits']['s']
-        if(south>-1) {
+        if(south !== '') {
           this.setState({ currentRoom: south})
         } else {
           alert('There is no room in that direction')
@@ -74,16 +74,16 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     goEast = () => {
       let east = rooms[this.state.currentRoom]['exits']['e']
-        if(east>-1) {
+        if(east !== '') {
           this.setState({ currentRoom: east})
-        } else {
+        } else if (east === null) {
           alert('There is no room in that direction')
         }
   }
 
     goWest = () => {
       let west = rooms[this.state.currentRoom]['exits']['w']
-        if(west>-1) {
+        if(west !== '') {
           this.setState({ currentRoom: west})
         } else {
           alert('There is no room in that direction')
@@ -102,8 +102,8 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
 
     render() {
-      
       if (this.state.rooms.allAreas !== undefined ) {
+        if (this.state.rooms.allAreas[this.state.currentRoom] !== undefined ) {
       return (
         <div className="App">
 
@@ -122,7 +122,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
           </div>
           <Footer />
         </div>
-      );} else {
+      );}} else {
         return (
           <div className="loading">
           <h1>Loading</h1>
