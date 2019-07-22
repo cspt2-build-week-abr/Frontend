@@ -1,3 +1,5 @@
+// static room data for diplaying the master room graph
+
 const rooms = 
     {0: {name:'Back yard', pokeballs: "[]", pokemon: "[]" , exits: {'n':1,'s':3,'e':'','w':7}, coords:{x: 12,y: 5}},
     1: {name:'Kanto', pokeballs: "[]", pokemon: "[]" , exits:{'n':2,'s':0,'e':17,'w':68}, coords:{x: 12,y: 6}},

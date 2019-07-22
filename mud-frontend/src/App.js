@@ -19,13 +19,62 @@ import {ProgressSpinner} from 'primereact/progressspinner';
           rooms: room_list,
           currentRoom: 0,
           user: {
+            userId: '',
+            username: '',
+            items: [],
+            currentLocation: [{x: 4, y: 5}],
+            areaId: '',
             inventory: []
           },
           loading: true,
           pokeballs: [1, 2, 3],
           pokemon: [4, 5, 6]
         };
+    };
+
+    signUp = (username, password) => {
+      let mutation = gql`
+        mutation($username: String! $password: String!) {
+          createUser(
+            username: $username
+            password: $password
+          ){
+            user {
+              username
+              password
+            }
+          }
+        }
+      `
+      this.props.client
+        .mutate({mutation, variables: {username: username, password: password}}).then((result) => console.log(result))
     }
+
+    // NEED TO FINISH BUILDING OUT FUNCTIONALITY TO QUERY DATABASE FOR LOG IN
+
+    logIn = (username, password) => {
+      this.props.client
+        .query({
+          query: gql`
+            {
+              users {
+                username
+                userId
+                items
+                areaId
+              }
+            }
+          `
+        // store the result from the log in query on state
+        }).then((result) => 
+          this.setState({
+            areaId: 
+              result.data.users[0].areaId
+            }, () => console.log(this.state.areaId)
+          )
+        )
+    }
+
 
     componentDidMount(){
       this.props.client
@@ -49,10 +98,6 @@ import {ProgressSpinner} from 'primereact/progressspinner';
       })
       .then(this.setState({ loading: false }))
     }
-
-
-
-    
 
     goNorth = () => {
       let north = rooms[this.state.currentRoom]['exits']['n']
@@ -108,21 +153,24 @@ import {ProgressSpinner} from 'primereact/progressspinner';
         <div className="App">
 
           <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
-         <RoomInventory pokemon={this.state.pokemon}
-          pokeballs={this.state.pokeballs}
-          inventoryItem = {this.addToInventory}/>
+          <RoomInventory 
+            pokemon={this.state.pokemon}
+            pokeballs={this.state.pokeballs}
+            inventoryItem = {this.addToInventory}
+          />
           <div className="lower">
             <GraphPlaceholder
               goNorth={this.goNorth}
               goSouth={this.goSouth}
               goEast={this.goEast}
               goWest={this.goWest}
-              currentRoom={this.state.currentRoom}/>
+              currentRoom={this.state.currentRoom}
+            />
             <PersonalInventory inventory={this.state.user.inventory}/>
           </div>
           <Footer />
         </div>
-      );}} else {
+      )}} else {
         return (
           <div className="loading">
           <h1>Loading</h1>

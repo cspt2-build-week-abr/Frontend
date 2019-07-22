@@ -1,21 +1,32 @@
+// this component displays the map of the rooms and the player's current location
+
 import React  from 'react';
 import '../App.css';
 import '../../node_modules/react-vis/dist/style.css';
-import {XYPlot, LineSeries, MarkSeries} from 'react-vis';
+import {XYPlot, LineSeries, MarkSeries, makeWidthFlexible} from 'react-vis';
 import rooms from '../Data/rooms.js'
 
+const FlexibleXYPlot = makeWidthFlexible(XYPlot)
 
 class Map extends React.Component {
-  render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentLocation: [{x: 4, y: 5}]
+        }
+    }
+  
+    render() {
 
-    // get coordinates from sample room data
+    // get coordinates from the room data--used to display rooms
 
     var coords = []
 
     for (var room in rooms) {
         coords.push(rooms[room].coords)
     }
-    // get edges for a single room 
+    
+    // get edges (existing exits) for a single room 
 
     let coords2 = [coords[this.props.currentRoom]]
 
@@ -35,11 +46,11 @@ class Map extends React.Component {
         return edges
     }
 
-    // get edges for all rooms
+    // compile the edges for all rooms--used to display paths between rooms
 
     function getAllEdges(allRooms) {
         var allEdges = []
-        // for every room, merge into the resulting array all of the edges for each room
+        // merge all of the edges for each room into the resulting array 
         for (var room in allRooms) {
             var roomEdges = getRoomEdges(allRooms[room])
             allEdges = allEdges.concat(roomEdges)
@@ -60,7 +71,7 @@ class Map extends React.Component {
                     key={Math.random()}
                 />
             ))}
-            {/* return dots from coordinates */}
+            {/* display rooms using coordinates */}
             <MarkSeries
                 data={coords}
                 color='blue'
@@ -69,7 +80,11 @@ class Map extends React.Component {
                 data={coords2}
                 color='red'
             />
-
+            {/* display user's current location */}
+            <MarkSeries
+                data={this.props.currentLocation}
+                color='red'
+            />
         </XYPlot>
         
       </div>
