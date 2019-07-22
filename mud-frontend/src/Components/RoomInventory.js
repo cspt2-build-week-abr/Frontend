@@ -26,6 +26,7 @@ class RoomInventory extends Component {
                         key={item.name}
                         title={item.name}
                         footer={<Button label="+" className="p-button-rounded p-button-secondary" onClick={() => this.props.inventoryItem(item)}/>}
+
                     >{item.name}</Card>
                     )})}
             </div>)

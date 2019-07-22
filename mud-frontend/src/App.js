@@ -410,8 +410,10 @@ import {ProgressSpinner} from 'primereact/progressspinner';
       return (
         <div className="App">
 
+
           <Header signUp={this.signUp} logIn={this.logIn} room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
           <RoomInventory
+
             pokemon={this.state.pokemon}
             pokeballs={this.state.pokeballs}
             inventoryItem = {this.addToInventory}
@@ -424,7 +426,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
               goWest={this.goWest}
               currentRoom={this.state.currentRoom}
             />
-            <PersonalInventory inventory={this.state.user.inventory}/>
+            <PersonalInventory name= {this.state.user.username} inventory={this.state.user.inventory}/>
           </div>
           <Footer />
         </div>
