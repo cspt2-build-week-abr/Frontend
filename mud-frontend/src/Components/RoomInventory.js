@@ -8,11 +8,11 @@ class RoomInventory extends Component {
         this.state = {};
     }
 
-    
-    render() {  
+
+    render() {
         if (this.props.pokeballs.length === 0 && this.props.pokemon.length === 0) {
             return (<div className="roominventory"><h1>Oh no! This room is empty!</h1></div>)
-        } 
+        }
         else {
             let roomstuff = []
             this.props.pokemon.map(item => roomstuff.push(item))
@@ -21,12 +21,12 @@ class RoomInventory extends Component {
                 <div className='roominventory'>
                     {roomstuff.map((item) => {
                     return (
-                        <Card 
+                        <Card
                         className='card'
-                        key={item} 
-                        title={item}
+                        key={item.name}
+                        title={item.name}
                         footer={<Button label="+" className="p-button-rounded p-button-secondary" onClick={() => this.props.inventoryItem(item)}/>}
-                    >{item}</Card>
+                    >{item.name}</Card>
                     )})}
             </div>)
         }
@@ -34,4 +34,3 @@ class RoomInventory extends Component {
 }
 
 export default RoomInventory;
-

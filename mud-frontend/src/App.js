@@ -24,12 +24,13 @@ import {ProgressSpinner} from 'primereact/progressspinner';
             items: [],
             currentLocation: [{x: 4, y: 5}],
             areaId: '',
-            inventory: []
+            inventory: [],
+            pokemon: [],
+            pokeballs: []
           },
           loading: true,
-          roomStuff: [],
-          pokeballs: [1, 2, 3],
-          pokemon: [4, 5, 6]
+          pokeballs: [],
+          pokemon: []
         };
     };
 
@@ -124,11 +125,13 @@ import {ProgressSpinner} from 'primereact/progressspinner';
               exits
               players
               areaId
+              description
             }
           }
         `
       })
       .then(results => {
+          console.log(results)
           const rooms = {
               allAreas: results.data.allAreas.map(room  =>  {
               room.pokeballs = JSON.parse(room.pokeballs)
@@ -177,10 +180,11 @@ import {ProgressSpinner} from 'primereact/progressspinner';
                 let pokeballSpawnChance = pokeballs.map(ball =>  {
                     return ball.spawnChance
                 })
-                let count = this.state.roomStuff.length
-                let newStuff = this.state.roomStuff
+                let count = this.state.pokemon.length + this.state.pokeballs.length
+                console.log(count)
+                let newPokemon = []
+                let newPokeballs = []
                 for(let i = 0; i < 5; i++)  {
-                    console.log(count)
                     if( count < 5)    {
                         const pokemonOrPokeball = Math.random()
                         if(pokemonOrPokeball < .5)  {
@@ -193,8 +197,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
                                     return mon
                                 }
                             })[0]
-                            console.log(spawnPokemon)
-                            newStuff.push(spawnPokemon)
+                            newPokemon.push(spawnPokemon)
                             count+=1
                         }   else {
                             const pokeballNum = Math.random()
@@ -206,28 +209,114 @@ import {ProgressSpinner} from 'primereact/progressspinner';
                                     return ball
                                 }
                             })[0]
-                            console.log(spawnPokeball)
-                            newStuff.push(spawnPokeball)
+                            newPokeballs.push(spawnPokeball)
                             count+=1
                         }
                     }
                 }
-                console.log(newStuff)
-                newStuff = newStuff.filter(item =>  {
+
+                newPokeballs = newPokeballs.filter(item =>  {
+                    return item!== undefined
+                })
+                newPokemon = newPokemon.filter(item =>  {
                     return item!== undefined
                 })
                 this.setState({
-                    roomStuff: newStuff
+                    pokemon: newPokemon,
+                    pokeballs: newPokeballs
                 })
+                let mutation = gql`
+                  mutation($areaId: String! $name: String! $description: String! $pokeballs: String! $pokemon: String! $coords: String! $exits: String! $players: String!) {
+                    updateArea(
+                      areaId: $areaId
+                      name: $name
+                      description: $description
+                      pokeballs: $pokeballs
+                      pokemon: $pokemon
+                      coords: $coords
+                      exits: $exits
+                      players: $players
+                    ){
+                      area {
+                          name
+                          areaId
+                          pokeballs
+                          pokemon
+                          players
+                          coords
+                          exits
+                          description
+                      }
+                    }
+                  }
+                `
+                this.props.client
+                  .mutate({mutation, variables: {
+                      areaId: this.state.rooms.allAreas[this.state.currentRoom].areaId,
+                      name: this.state.rooms.allAreas[this.state.currentRoom].name,
+                      description: "",
+                      pokeballs: JSON.stringify(this.state.pokeballs),
+                      pokemon: JSON.stringify(this.state.pokemon),
+                      coords: JSON.stringify(this.state.rooms.allAreas[this.state.currentRoom].coords),
+                      exits: JSON.stringify(this.state.rooms.allAreas[this.state.currentRoom].exits),
+                      players: JSON.stringify(this.state.rooms.allAreas[this.state.currentRoom].players)
+                  }
+              })
+                  .then((result) => {
+                      // console.log(result)
+                      let newRooms = this.state.rooms
+                      newRooms.allAreas[this.state.currentRoom] = result.data.updateArea.area
+                      this.setState({
+                          rooms: newRooms,
+                          pokeballs: JSON.parse(newRooms.allAreas[this.state.currentRoom].pokeballs),
+                          pokemon: JSON.parse(newRooms.allAreas[this.state.currentRoom].pokemon)
+                      })
+                  })
             })
+        })
+    }
+
+    updateAreaFunc = () =>{
+        this.props.client
+        .query({
+          query: gql`
+            {
+              allAreas {
+                name
+                pokeballs
+                pokemon
+                coords
+                exits
+                players
+                areaId
+              }
+            }
+          `
+        })
+        .then((result)  =>  {
+            const room = result.data.allAreas.filter(r    =>  {
+                return r.areaId == this.state.rooms.allAreas[this.state.currentRoom].areaId
+            })[0]
+            let rooms = this.state.rooms
+
+            rooms.allAreas[this.state.currentRoom] = room
+            console.log(room)
+            let user = this.state.user
+            user.areaId = room.areaId
+            this.setState({
+                rooms: rooms,
+                pokemon: JSON.parse(room.pokemon),
+                pokeballs: JSON.parse(room.pokeballs),
+                user: user
+            }, console.log(this.state))
         })
     }
 
     goNorth = () => {
       let north = rooms[this.state.currentRoom]['exits']['n']
+      console.log(north)
         if(north !== '') {
-          this.setState({ currentRoom: north})
-          this.spawn()
+          this.setState({ currentRoom: north},this.updateAreaFunc(),this.spawn())
         } else {
           alert('There is no room in that direction')
         }
@@ -236,7 +325,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
       goSouth = () => {
         let south = rooms[this.state.currentRoom]['exits']['s']
         if(south !== '') {
-          this.setState({ currentRoom: south})
+          this.setState({ currentRoom: south},this.updateAreaFunc(),this.spawn())
         } else {
           alert('There is no room in that direction')
         }
@@ -245,7 +334,8 @@ import {ProgressSpinner} from 'primereact/progressspinner';
     goEast = () => {
       let east = rooms[this.state.currentRoom]['exits']['e']
         if(east !== '') {
-          this.setState({ currentRoom: east})
+          this.setState({ currentRoom: east},this.updateAreaFunc(),this.spawn())
+          this.spawn()
         } else if (east === null) {
           alert('There is no room in that direction')
         }
@@ -254,7 +344,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
     goWest = () => {
       let west = rooms[this.state.currentRoom]['exits']['w']
         if(west !== '') {
-          this.setState({ currentRoom: west})
+          this.setState({ currentRoom: west},this.updateAreaFunc(),this.spawn())
         } else {
           alert('There is no room in that direction')
         }
@@ -266,8 +356,51 @@ import {ProgressSpinner} from 'primereact/progressspinner';
         return value !== item;
       }
 
-      this.setState({ pokemon: this.state.pokemon.filter(isNotItem)})
-      this.setState({ pokeballs: this.state.pokeballs.filter(isNotItem)})
+      this.setState({ pokemon: this.state.pokemon.filter(isNotItem)},() =>  {
+          this.setState({ pokeballs: this.state.pokeballs.filter(isNotItem)},() =>  {
+              let user = this.state.user
+              user.items.push(item)
+              this.setState({user: user},() =>  {
+                  let mutation = gql`
+                    mutation($userId: String! $username: String! $items: String! $areaId: String! $pokemon: String! $pokeballs: String!) {
+                      updateUser(
+                        userId: $userId
+                        areaId: $areaId
+                        username: $username
+                        items: $items
+                        pokeballs: $pokeballs
+                        pokemon: $pokemon
+                      ){
+                        user {
+                            userId
+                            areaId
+                            username
+                            items
+                            pokemon
+                            pokeballs
+                        }
+                      }
+                    }
+                  `
+                  console.log(this.state)
+                  this.props.client
+                    .mutate({mutation, variables: {
+                        userId: this.state.user.userId,
+                        areaId: this.state.user.areaId,
+                        username: this.state.user.username,
+                        pokeballs: "[]",
+                        pokemon: "[]",
+                        items: JSON.stringify(this.state.user.items)
+                    }
+                })
+                    .then((result) => {
+                        console.log(result)
+                        console.log(this.state.user)
+                    })
+              })
+          })
+      })
+
     }
 
 

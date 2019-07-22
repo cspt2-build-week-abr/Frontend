@@ -7,7 +7,7 @@ class PersonalInventory extends Component {
         this.state = {
 
         };
-    
+
     }
     render(){
         if (this.props.inventory.length > 0) {
@@ -16,7 +16,7 @@ class PersonalInventory extends Component {
             <Card header='Personal Inventory' className="inventory">
                 <span className='collected'>{this.props.inventory.length}/100 Collected!</span>
                 {this.props.inventory.map((item) => {
-                    return <li>{item}</li>
+                    return <li>{item.name}</li>
                 })}
             </Card>
             </div>
