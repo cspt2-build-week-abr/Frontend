@@ -15,10 +15,9 @@ class Map extends React.Component {
     for (var room in rooms) {
         coords.push(rooms[room].coords)
     }
-    
     // get edges for a single room 
 
-    let coords2 = coords[this.props.currentRoom]
+    let coords2 = [coords[this.props.currentRoom]]
 
     function getRoomEdges(room) {
         var existingExits = []
@@ -49,7 +48,6 @@ class Map extends React.Component {
     }
 
     var edges = getAllEdges(rooms)
-    console.log(edges)
 
     return (
       <div className='graph'>
@@ -66,6 +64,10 @@ class Map extends React.Component {
             <MarkSeries
                 data={coords}
                 color='blue'
+            />
+            <MarkSeries
+                data={coords2}
+                color='red'
             />
 
         </XYPlot>
