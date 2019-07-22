@@ -273,7 +273,6 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     render() {
       if (this.state.rooms.allAreas !== undefined ) {
-        console.log(this.state.rooms)
         if (this.state.rooms.allAreas[this.state.currentRoom] !== undefined ) {
       return (
         <div className="App">
@@ -294,7 +293,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
               goWest={this.goWest}
               currentRoom={this.state.currentRoom}
             />
-            <PersonalInventory inventory={this.state.user.inventory}/>
+            <PersonalInventory name= {this.state.user.username} inventory={this.state.user.inventory}/>
           </div>
           <Footer />
         </div>
