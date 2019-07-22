@@ -38,7 +38,7 @@ export class Footer extends Component {
                     <Button label="Dev Team" onClick={this.onClick} className="p-button-raised p-button-rounded p-button-secondary"/>
                 </div>
                 <div className="content-section implementation">
-                    <Dialog header="Okemonpay Dev Team" visible={this.state.visible} style={{width: '50vw'}} footer={footer} onHide={this.onHide}>
+                    <Dialog header="Okemonpay Dev Team" visible={this.state.visible} style={{width: '60vw', height: '50vhx', marginTop: '0vh' }} footer={footer} onHide={this.onHide}>
                             <div className='pics'>
                                 <div><a href='http://github.com/AbiFranklin' target="_blank" rel="noopener noreferrer"><img src={Abi} alt="Dev Pic"/><p>Abi Franklin</p></a></div>
                                 <div><a href='http://github.com/BrandonMoll' target="_blank" rel="noopener noreferrer"><img src={Brandon} alt="Dev Pic"/><p>Brandon Moll</p></a></div>
