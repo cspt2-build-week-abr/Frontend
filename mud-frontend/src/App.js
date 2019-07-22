@@ -8,7 +8,9 @@ import GraphPlaceholder from './Components/GraphPlaceholder'
 import PersonalInventory from './Components/Inventory'
 import Footer from './Components/Footer'
 import room_list from './Components/dummydata'
+import rooms from './Data/rooms'
 import { gql } from "apollo-boost";
+import {ProgressSpinner} from 'primereact/progressspinner';
 
   export class App extends Component {
     constructor() {
@@ -21,10 +23,14 @@ import { gql } from "apollo-boost";
             username: '',
             items: [],
             currentLocation: [{x: 4, y: 5}],
-            areaId: ''
-          }
+            areaId: '',
+            inventory: []
+          },
+          loading: true,
+          pokeballs: [1, 2, 3],
+          pokemon: [4, 5, 6]
         };
-    }
+    };
 
     signUp = (username, password) => {
       let mutation = gql`
@@ -69,71 +75,109 @@ import { gql } from "apollo-boost";
         )
     }
 
+
+    componentDidMount(){
+      this.props.client
+      .query({
+        query: gql`
+          {
+            allAreas {
+              name
+              pokeballs
+              pokemon
+              coords
+              exits
+              players
+            }
+          }
+        `
+      })
+
+      .then(results => {
+        this.setState({ rooms: results.data })
+      })
+      .then(this.setState({ loading: false }))
+    }
+
     goNorth = () => {
-        let room = this.state.currentRoom
-        let north = this.state.rooms[room][2][0]
-        // if (south !== undefined) {
-        //   this.setState({ currentRoom: south })
-        // } else {
-          alert('North')
-        // }
+      let north = rooms[this.state.currentRoom]['exits']['n']
+        if(north !== '') {
+          this.setState({ currentRoom: north})
+        } else {
+          alert('There is no room in that direction')
+        }
     }
 
       goSouth = () => {
-        let room = this.state.currentRoom
-        let south = this.state.rooms[room][2][1]
-        // if (south !== undefined) {
-        //   this.setState({ currentRoom: south })
-        // } else {
-          alert('South')
-        // }
+        let south = rooms[this.state.currentRoom]['exits']['s']
+        if(south !== '') {
+          this.setState({ currentRoom: south})
+        } else {
+          alert('There is no room in that direction')
+        }
     }
 
     goEast = () => {
-      let room = this.state.currentRoom
-      let east = this.state.rooms[room][2][2]
-      // if (south !== undefined) {
-      //   this.setState({ currentRoom: south })
-      // } else {
-        alert('East')
-      // }
+      let east = rooms[this.state.currentRoom]['exits']['e']
+        if(east !== '') {
+          this.setState({ currentRoom: east})
+        } else if (east === null) {
+          alert('There is no room in that direction')
+        }
   }
 
     goWest = () => {
-      let room = this.state.currentRoom
-      let west = this.state.rooms[room][2][3]
-      // if (south !== undefined) {
-      //   this.setState({ currentRoom: south })
-      // } else {
-        alert('West')
-      // }
+      let west = rooms[this.state.currentRoom]['exits']['w']
+        if(west !== '') {
+          this.setState({ currentRoom: west})
+        } else {
+          alert('There is no room in that direction')
+        }
+    }
+
+    addToInventory = (item) => {
+      this.state.user.inventory.push(item)
+      function isNotItem(value) {
+        return value !== item;
+      }
+      
+      this.setState({ pokemon: this.state.pokemon.filter(isNotItem)}) 
+      this.setState({ pokeballs: this.state.pokeballs.filter(isNotItem)}) 
     }
 
 
     render() {
-      console.log(this.state.rooms)
-
+      if (this.state.rooms.allAreas !== undefined ) {
+        if (this.state.rooms.allAreas[this.state.currentRoom] !== undefined ) {
       return (
         <div className="App">
 
-          <Header 
-            room={this.state.rooms[this.state.currentRoom][1]}
-            signUp={this.signUp}
-            logIn={this.logIn}
+          <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
+          <RoomInventory 
+            pokemon={this.state.pokemon}
+            pokeballs={this.state.pokeballs}
+            inventoryItem = {this.addToInventory}
           />
-          <RoomInventory rooms={this.state.rooms}/>
           <div className="lower">
             <GraphPlaceholder
-              goNorth={()=>this.goNorth}
-              goSouth={()=>this.goSouth}
-              goEast={()=>this.goEast}
-              goWest={()=>this.goWest}
-              currentLocation={this.state.user.currentLocation}/>
-            <PersonalInventory />
+              goNorth={this.goNorth}
+              goSouth={this.goSouth}
+              goEast={this.goEast}
+              goWest={this.goWest}
+              currentRoom={this.state.currentRoom}
+            />
+            <PersonalInventory inventory={this.state.user.inventory}/>
           </div>
           <Footer />
         </div>
-      );
+      )}} else {
+        return (
+          <div className="loading">
+          <h1>Loading</h1>
+          <ProgressSpinner />
+          </div>
+        )
+      }
     }
 }
 
@@ -148,3 +192,10 @@ export default App;
 //         `}
 //         >
 // </Query>
+
+
+
+
+
+// JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokemon'])
+// JSON.parse(this.state.rooms['allAreas'][this.state.currentRoom]['pokeballs'])

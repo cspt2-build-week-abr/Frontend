@@ -28,6 +28,8 @@ class Map extends React.Component {
     
     // get edges (existing exits) for a single room 
 
+    let coords2 = [coords[this.props.currentRoom]]
+
     function getRoomEdges(room) {
         var existingExits = []
         var edges = []
@@ -59,9 +61,9 @@ class Map extends React.Component {
     var edges = getAllEdges(rooms)
 
     return (
-      <div>
-        <XYPlot width={675} height={415}>
-            {/* display paths using edges */}
+      <div className='graph'>
+        <XYPlot height={415} width={690}>
+            {/* return lines from edges */}
             {edges.map(edge => (
                 <LineSeries
                     data={edge}
@@ -72,7 +74,11 @@ class Map extends React.Component {
             {/* display rooms using coordinates */}
             <MarkSeries
                 data={coords}
-                color='#6146B1'
+                color='blue'
+            />
+            <MarkSeries
+                data={coords2}
+                color='red'
             />
             {/* display user's current location */}
             <MarkSeries
@@ -80,6 +86,7 @@ class Map extends React.Component {
                 color='red'
             />
         </XYPlot>
+        
       </div>
     );
   }

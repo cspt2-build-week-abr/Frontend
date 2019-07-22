@@ -3,6 +3,7 @@ import {Button} from 'primereact/button'
 import {OverlayPanel} from 'primereact/overlaypanel';
 import {InputText} from 'primereact/inputtext';
 
+
 class Header extends Component{
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ class Header extends Component{
     return (
         <div className="header">
             <h1>OKEMONPAY!</h1>
-            <h2>Current Room: {this.props.room}</h2>
+            <h1>{this.props.room}</h1>
             <div className='headbuttongroup'>
                 <Button label="Sign Up" className="p-button-raised p-button-rounded p-button-secondary headbutton" onClick={(e) => this.op1.toggle(e)}/>
                 <Button label="Log In" className="p-button-raised p-button-rounded p-button-secondary headbutton" onClick={(e) => this.op2.toggle(e)}/>
