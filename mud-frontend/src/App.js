@@ -59,7 +59,14 @@ import { gql } from "apollo-boost";
               }
             }
           `
-        }).then((result) => this.setState({areaId: result.data.users[0].areaId}, () => console.log(this.state.areaId)))
+        // store the result from the log in query on state
+        }).then((result) => 
+          this.setState({
+            areaId: 
+              result.data.users[0].areaId
+            }, () => console.log(this.state.areaId)
+          )
+        )
     }
 
     goNorth = () => {

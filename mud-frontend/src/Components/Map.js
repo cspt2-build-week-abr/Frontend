@@ -48,7 +48,7 @@ class Map extends React.Component {
 
     function getAllEdges(allRooms) {
         var allEdges = []
-        // for every room, merge into the resulting array all of the edges for each room
+        // merge all of the edges for each room into the resulting array 
         for (var room in allRooms) {
             var roomEdges = getRoomEdges(allRooms[room])
             allEdges = allEdges.concat(roomEdges)
@@ -77,7 +77,7 @@ class Map extends React.Component {
             {/* display user's current location */}
             <MarkSeries
                 data={this.props.currentLocation}
-                color='#E55740'
+                color='red'
             />
         </XYPlot>
       </div>
