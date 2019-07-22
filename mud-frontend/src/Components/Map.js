@@ -76,15 +76,15 @@ class Map extends React.Component {
                 data={coords}
                 color='blue'
             />
+            {/* display user's current location */}
             <MarkSeries
                 data={coords2}
                 color='red'
             />
-            {/* display user's current location */}
-            <MarkSeries
+            {/* <MarkSeries
                 data={this.props.currentLocation}
                 color='red'
-            />
+            /> */}
         </XYPlot>
         
       </div>
