@@ -27,6 +27,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
             inventory: []
           },
           loading: true,
+          roomStuff: [],
           pokeballs: [1, 2, 3],
           pokemon: [4, 5, 6]
         };
@@ -40,39 +41,73 @@ import {ProgressSpinner} from 'primereact/progressspinner';
             password: $password
           ){
             user {
-              username
-              password
+                username
+                userId
+                areaId
+                items
+                pokemon
             }
           }
         }
       `
       this.props.client
-        .mutate({mutation, variables: {username: username, password: password}}).then((result) => console.log(result))
+        .mutate({mutation, variables: {username: username, password: password}})
+        .then((result) => {
+            console.log(result)
+            const currentRoom = this.state.rooms.allAreas.filter(room    =>  {
+                return room.areaId == result.data.createUser.user.areaId
+            })[0]
+            console.log(result.data.createUser.user)
+            console.log(result.data.createUser.user.items.concat(result.data.createUser.user.pokemon))
+            this.setState({
+                user: {
+                    userId: result.data.createUser.user.userId,
+                    username: result.data.createUser.user.username,
+                    items: JSON.parse(result.data.createUser.user.items),
+                    currentLocation: [currentRoom.coords],
+                    inventory: JSON.parse(result.data.createUser.user.pokemon).concat(JSON.parse(result.data.createUser.user.items))
+                }
+            },()  =>  console.log(this.state))
+        })
     }
 
     // NEED TO FINISH BUILDING OUT FUNCTIONALITY TO QUERY DATABASE FOR LOG IN
 
     logIn = (username, password) => {
-      this.props.client
-        .query({
-          query: gql`
-            {
-              users {
+        let mutation = gql`
+          mutation($username: String! $password: String!) {
+            login  (
+              username: $username
+              password: $password
+            ){
+              user {
                 username
                 userId
-                items
                 areaId
+                items
+                pokemon
               }
             }
-          `
-        // store the result from the log in query on state
-        }).then((result) => 
-          this.setState({
-            areaId: 
-              result.data.users[0].areaId
-            }, () => console.log(this.state.areaId)
-          )
-        )
+          }
+        `
+        this.props.client
+          .mutate({mutation, variables: {username: username, password: password}})
+          .then((result) => {
+              const currentRoom = this.state.rooms.allAreas.filter(room    =>  {
+                  return room.areaId == result.data.login.user.areaId
+              })[0]
+              console.log(result.data.login.user)
+              console.log(result.data.login.user.items.concat(result.data.login.user.pokemon))
+              this.setState({
+                  user: {
+                      userId: result.data.login.user.userId,
+                      username: result.data.login.user.username,
+                      items: JSON.parse(result.data.login.user.items),
+                      currentLocation: [currentRoom.coords],
+                      inventory: JSON.parse(result.data.login.user.pokemon).concat(JSON.parse(result.data.login.user.items))
+                  }
+              },()  =>  console.log(this.state))
+          })
     }
 
 
@@ -88,21 +123,111 @@ import {ProgressSpinner} from 'primereact/progressspinner';
               coords
               exits
               players
+              areaId
             }
           }
         `
       })
-
       .then(results => {
-        this.setState({ rooms: results.data })
+          const rooms = {
+              allAreas: results.data.allAreas.map(room  =>  {
+              room.pokeballs = JSON.parse(room.pokeballs)
+              room.pokemon = JSON.parse(room.pokemon)
+              room.players = JSON.parse(room.players)
+              room.coords = JSON.parse(room.coords)
+              room.exits = JSON.parse(room.exits)
+              return room
+          })}
+        this.setState({ rooms: rooms, loading: false })
       })
-      .then(this.setState({ loading: false }))
+    }
+
+    spawn = ()  =>  {
+        this.props.client
+        .query({
+          query: gql`
+            {
+              allPokeballs {
+                name
+                catchRate
+                spawnChance
+              }
+            }
+          `
+        })
+        .then(result    =>  {
+            const pokeballs = result.data.allPokeballs
+            this.props.client
+            .query({
+              query: gql`
+                {
+                  allPokemon {
+                    name
+                    catchChance
+                    spawnChance
+                  }
+                }
+              `
+            })
+            .then((result)  =>  {
+                const pokemon = result.data.allPokemon
+                let pokemonSpawnChance = pokemon.map(mon =>  {
+                    return mon.spawnChance
+                })
+                let pokeballSpawnChance = pokeballs.map(ball =>  {
+                    return ball.spawnChance
+                })
+                let count = this.state.roomStuff.length
+                let newStuff = this.state.roomStuff
+                for(let i = 0; i < 5; i++)  {
+                    console.log(count)
+                    if( count < 5)    {
+                        const pokemonOrPokeball = Math.random()
+                        if(pokemonOrPokeball < .5)  {
+                            const pokemonNum = Math.random()
+                            const filtered = pokemonSpawnChance.filter(mon  =>  {
+                                return mon > pokemonNum
+                            })
+                            const spawnPokemon = pokemon.filter((mon)   =>  {
+                                if(mon.spawnChance === filtered[filtered.length - 1])   {
+                                    return mon
+                                }
+                            })[0]
+                            console.log(spawnPokemon)
+                            newStuff.push(spawnPokemon)
+                            count+=1
+                        }   else {
+                            const pokeballNum = Math.random()
+                            const filtered = pokeballSpawnChance.filter(mon  =>  {
+                                return mon > pokeballNum
+                            })
+                            const spawnPokeball = pokeballs.filter((ball)   =>  {
+                                if(ball.spawnChance === filtered[filtered.length - 1])   {
+                                    return ball
+                                }
+                            })[0]
+                            console.log(spawnPokeball)
+                            newStuff.push(spawnPokeball)
+                            count+=1
+                        }
+                    }
+                }
+                console.log(newStuff)
+                newStuff = newStuff.filter(item =>  {
+                    return item!== undefined
+                })
+                this.setState({
+                    roomStuff: newStuff
+                })
+            })
+        })
     }
 
     goNorth = () => {
       let north = rooms[this.state.currentRoom]['exits']['n']
         if(north !== '') {
           this.setState({ currentRoom: north})
+          this.spawn()
         } else {
           alert('There is no room in that direction')
         }
@@ -140,9 +265,9 @@ import {ProgressSpinner} from 'primereact/progressspinner';
       function isNotItem(value) {
         return value !== item;
       }
-      
-      this.setState({ pokemon: this.state.pokemon.filter(isNotItem)}) 
-      this.setState({ pokeballs: this.state.pokeballs.filter(isNotItem)}) 
+
+      this.setState({ pokemon: this.state.pokemon.filter(isNotItem)})
+      this.setState({ pokeballs: this.state.pokeballs.filter(isNotItem)})
     }
 
 
@@ -152,8 +277,8 @@ import {ProgressSpinner} from 'primereact/progressspinner';
       return (
         <div className="App">
 
-          <Header room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
-          <RoomInventory 
+          <Header signUp={this.signUp} logIn={this.logIn} room={this.state.rooms['allAreas'][this.state.currentRoom]['name']}/>
+          <RoomInventory
             pokemon={this.state.pokemon}
             pokeballs={this.state.pokeballs}
             inventoryItem = {this.addToInventory}
