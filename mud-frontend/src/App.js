@@ -56,7 +56,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     goNorth = () => {
       let north = rooms[this.state.currentRoom]['exits']['n']
-        if(north) {
+        if(north>-1) {
           this.setState({ currentRoom: north})
         } else {
           alert('There is no room in that direction')
@@ -65,7 +65,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
       goSouth = () => {
         let south = rooms[this.state.currentRoom]['exits']['s']
-        if(south) {
+        if(south>-1) {
           this.setState({ currentRoom: south})
         } else {
           alert('There is no room in that direction')
@@ -74,7 +74,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     goEast = () => {
       let east = rooms[this.state.currentRoom]['exits']['e']
-        if(east) {
+        if(east>-1) {
           this.setState({ currentRoom: east})
         } else {
           alert('There is no room in that direction')
@@ -83,7 +83,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
 
     goWest = () => {
       let west = rooms[this.state.currentRoom]['exits']['w']
-        if(west) {
+        if(west>-1) {
           this.setState({ currentRoom: west})
         } else {
           alert('There is no room in that direction')

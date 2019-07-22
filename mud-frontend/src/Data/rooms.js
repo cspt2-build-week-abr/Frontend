@@ -2,7 +2,7 @@ const rooms =
     {0: {name:'Back yard', pokeballs: "[]", pokemon: "[]" , exits: {'n':1,'s':3,'e':'','w':7}, coords:{x: 12,y: 5}},
     1: {name:'Kanto', pokeballs: "[]", pokemon: "[]" , exits:{'n':2,'s':0,'e':17,'w':68}, coords:{x: 12,y: 6}},
     2: {name:'Johto', pokeballs: "[]", pokemon: "[]" , exits:{'n':5,'s':1,'e':18,'w':69}, coords:{x: 12,y: 7}},
-    3: {name:'Hoenn', pokeballs: "[]", pokemon: "[]" , exits:{'n':3,'s':4,'e':'','w':44}, coords:{x: 12,y: 4}},
+    3: {name:'Hoenn', pokeballs: "[]", pokemon: "[]" , exits:{'n':0,'s':4,'e':'','w':44}, coords:{x: 12,y: 4}},
     4: {name:'Sinnoh', pokeballs: "[]", pokemon: "[]" , exits:{'n':3,'s':6,'e':'','w':45}, coords:{x: 12,y: 3}},
     5: {name:'Unova', pokeballs: "[]", pokemon: "[]" , exits:{'n':77,'s':2,'e':'','w':''}, coords:{x: 12,y: 8}},
     6: {name:'Kalos', pokeballs: "[]", pokemon: "[]" , exits:{'n':4,'s':'','e':'','w':''}, coords:{x: 12,y: 2}},
