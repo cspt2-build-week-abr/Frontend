@@ -430,7 +430,7 @@ import {ProgressSpinner} from 'primereact/progressspinner';
               goWest={this.goWest}
               currentRoom={this.state.currentRoom}
             />
-            <PersonalInventory name= {this.state.user.username} inventory={this.state.user.inventory}/>
+            <PersonalInventory user={this.state.user} inventory={this.state.user.items} client={this.props.client} name={this.state.user.username} />
           </div>
           <Footer />
         </div>

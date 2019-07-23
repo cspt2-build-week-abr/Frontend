@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Card} from 'primereact/card';
+import { gql } from "apollo-boost";
 
 class PersonalInventory extends Component {
     constructor() {
@@ -35,6 +36,39 @@ class PersonalInventory extends Component {
                         var index = this.props.inventory.indexOf(item);
                         if (index > -1) {
                         this.props.inventory.splice(index, 1)
+                        let mutation = gql`
+                        mutation($userId: String! $username: String! $items: String! $areaId: String! $pokemon: String! $pokeballs: String!) {
+                            updateUser(
+                              userId: $userId
+                              areaId: $areaId
+                              username: $username
+                              items: $items
+                              pokeballs: $pokeballs
+                              pokemon: $pokemon
+                            ){
+                                user {
+                                    userId
+                                    areaId
+                                    username
+                                    items
+                                    pokemon
+                                    pokeballs
+                                }
+                              }
+                            }
+                        `
+                        this.props.client.mutate({ mutation, variables: {
+                            userId: this.props.user.userId,
+                            areaId: this.props.user.areaId,
+                            username: this.props.user.username,
+                            pokeballs: "[]",
+                            pokemon: "[]",
+                            items: JSON.stringify(this.props.inventory)
+                        }})
+                        .then((result) => {
+                            console.log(result)
+                            }
+                        )
                         this.forceUpdate()
                     }
                     }}>Drop Item</button></li>
