@@ -312,6 +312,10 @@ import {ProgressSpinner} from 'primereact/progressspinner';
         })
     }
 
+
+
+
+
     goNorth = () => {
       let north = rooms[this.state.currentRoom]['exits']['n']
       console.log(north)
